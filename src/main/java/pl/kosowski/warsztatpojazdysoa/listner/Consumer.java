@@ -30,6 +30,7 @@ public class Consumer {
                     HttpMethod.PUT,
                     requestEntity,
                     HttpStatus.class);
+            System.out.println(exchange.getStatusCode());
         }
     }
 }

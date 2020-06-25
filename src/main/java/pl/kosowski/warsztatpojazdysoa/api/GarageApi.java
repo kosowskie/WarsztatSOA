@@ -6,16 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.kosowski.warsztatpojazdysoa.model.Car;
 
 import javax.jms.Queue;
-import java.io.StringWriter;
 
 @RestController
+@RequestMapping("/garage")
 public class GarageApi {
     private JmsTemplate jmsTemplate;
     private Queue queue;
@@ -27,7 +24,7 @@ public class GarageApi {
     }
 
     @PatchMapping
-    public ResponseEntity<HttpStatus> patchChangeServiceNeeded(@RequestBody Car car,@RequestParam String serviceNeeded){
+    public ResponseEntity<HttpStatus> patchChangeServiceNeeded(@RequestBody Car car, @RequestParam String serviceNeeded){
         car.setServiceNeeded(serviceNeeded);
         ObjectMapper mapper = new ObjectMapper();
 
