@@ -15,22 +15,21 @@ public class Consumer {
     public void listener(String message) throws JsonProcessingException {
 
         Car car = new ObjectMapper().readValue(message, Car.class);
-        String serviceNeededCheck = car.getServiceNeeded();
-        boolean serviceNeeded = serviceNeededCheck.substring(serviceNeededCheck.indexOf(" ") + 1).equals("true");
+        makePut(car);
+    }
 
+    public void makePut(Car car) {
         RestTemplate restTemplate = new RestTemplate();
         String link = "https://pkowaleckicarsapi.herokuapp.com/editCar/" + car.getId();
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Car> requestEntity = new HttpEntity<>(car, requestHeaders);
-        if (serviceNeeded) {
-            ResponseEntity<HttpStatus> exchange = restTemplate.exchange(
-                    link,
-                    HttpMethod.PUT,
-                    requestEntity,
-                    HttpStatus.class);
-            System.out.println(exchange.getStatusCode());
-        }
+
+        restTemplate.exchange(
+                link,
+                HttpMethod.PUT,
+                requestEntity,
+                HttpStatus.class);
     }
 }
