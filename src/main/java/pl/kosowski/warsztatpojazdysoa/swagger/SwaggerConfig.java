@@ -30,7 +30,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket garageApi() {
+    public Docket garage() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .pathMapping("")
